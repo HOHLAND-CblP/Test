@@ -1,0 +1,50 @@
+CREATE TABLE Products (
+	Id INT PRIMARY KEY,
+	"Name" TEXT
+);
+
+CREATE TABLE Categories (
+	Id INT PRIMARY KEY,
+	"Name" TEXT
+);
+
+CREATE TABLE ProductCategories (
+  	ProductId INT,
+  	CategoryId INT,
+	FOREIGN KEY (ProductId) REFERENCES Products(Id),
+	FOREIGN KEY (CategoryId) REFERENCES Categories(Id)
+);
+
+INSERT INTO Products
+VALUES 
+  (1, "Windows 10"),
+  (2, "Windows 7"),
+  (3, "Kaspersky Antivirus"),
+  (4, "Battlefield 4"),
+  (5, "Chrome");
+  
+INSERT INTO Categories
+VALUES 
+  (1, "OS"),
+  (2, "Antivirus"),
+  (3, "Game"),
+  (4, "Programms"),
+  (5, "Messenger");
+ 
+INSERT INTO ProductCategories
+VALUES 
+  (1, 1),
+  (2, 1),
+  (3, 2),
+  (3, 4),
+  (4, 3),
+  (4, 4),
+  (5, 4);
+  
+SELECT P."Name", C."Name"
+FROM Products P
+LEFT JOIN ProductCategories PC
+	ON P.Id = PC.ProductId
+LEFT JOIN Categories C
+	ON PC.CategoryId = C.Id;
+  
